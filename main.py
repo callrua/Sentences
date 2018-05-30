@@ -1,4 +1,3 @@
-
 import re
 
 
@@ -25,11 +24,27 @@ def check_period_at_end(sentence):
 
 
 def check_no_other_period(sentence):
-    print(sentence)
+    period = sentence.find('.')
+    if period == len(sentence)-1:
+        print('PASS: Sentence has no other periods aside from ending character.')
+    elif period == -1:
+        print('FAIL: Sentence contains no period at all!')
+    else:
+        print('FAIL: Sentence contains a period out of place!')
 
 
 def check_numbers(sentence):
-    print(sentence)
+    """ Numbers below 13 are spelled out (”one”, “two”, &quot;three”, etc…)"""
+    numbers = re.findall(r'\d+', sentence)
+    fail = False
+    for number in numbers:
+        if int(number) < 13:
+            fail = True
+            print('FAIL: Sentence contains numbers less than 13 not spelled out!')
+            break
+
+    if not fail:
+        print('PASS: Numbers spelled correctly')
 
 
 if __name__ == '__main__':
@@ -37,3 +52,5 @@ if __name__ == '__main__':
     check_capital_letter(sentence_to_validate)
     check_period_at_end(sentence_to_validate)
     check_quotation_marks(sentence_to_validate)
+    check_no_other_period(sentence_to_validate)
+    check_numbers(sentence_to_validate)
