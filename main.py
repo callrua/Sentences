@@ -1,8 +1,9 @@
 import re
-
+import argparse
+import sys
 
 def check_capital_letter(sentence):
-    print('Confirming sentence begins with a capital letter...')
+    #print('Confirming sentence begins with a capital letter...')
     if sentence[0].isupper():
         print('PASS: Sentence begins with a capital letter.')
     else:
@@ -47,10 +48,36 @@ def check_numbers(sentence):
         print('PASS: Numbers spelled correctly')
 
 
+def run_all_checks(sentence):
+    print("\nChecking the following sentence: " + sentence)
+    check_capital_letter(sentence)
+    check_period_at_end(sentence)
+    check_quotation_marks(sentence)
+    check_no_other_period(sentence)
+    check_numbers(sentence)
+
+
 if __name__ == '__main__':
-    sentence_to_validate = input('Enter string to validate: ')
-    check_capital_letter(sentence_to_validate)
-    check_period_at_end(sentence_to_validate)
-    check_quotation_marks(sentence_to_validate)
-    check_no_other_period(sentence_to_validate)
-    check_numbers(sentence_to_validate)
+    if not len(sys.argv) > 1:
+        sentence_to_validate = input('Enter string to validate: ')
+        run_all_checks(sentence_to_validate.strip())
+    else:
+        file_to_validate = sys.argv[1]
+        try:
+            f = open(file_to_validate)
+            sentence_to_validate = f.readline()
+            while sentence_to_validate:
+            #print("\nChecking the following sentence: " + sentence_to_validate)
+                run_all_checks(sentence_to_validate.strip())
+                sentence_to_validate = f.readline()
+            f.close()
+        except OSError as e:
+            print("Exception occurred as file " + file_to_validate + " does not exist!")
+
+
+    #sentence_to_validate = input('Enter string to validate: ')
+    #check_capital_letter(sentence_to_validate)
+    #check_period_at_end(sentence_to_validate)
+    #check_quotation_marks(sentence_to_validate)
+    #check_no_other_period(sentence_to_validate)
+    #check_numbers(sentence_to_validate)
