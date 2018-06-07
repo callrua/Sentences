@@ -1,8 +1,5 @@
-from tkinter import *
 import re
-
 import sys
-import GUI
 
 
 def check_capital_letter(sentence):
@@ -35,7 +32,6 @@ def check_no_other_period(sentence):
 
 
 def check_numbers(sentence):
-    """ Numbers below 13 are spelled out (”one”, “two”, &quot;three”, etc…)"""
     numbers = re.findall(r'\d+', sentence)
     fail = False
     for number in numbers:
@@ -82,41 +78,16 @@ def validate_file(file_to_validate):
         f = open(file_to_validate)
         sentence_to_validate = f.readline()
         while sentence_to_validate:
-            # print("\nChecking the following sentence: " + sentence_to_validate)
             run_all_checks(sentence_to_validate.strip())
             sentence_to_validate = f.readline()
         f.close()
-    except OSError as e:
+    except OSError:
         print("Exception occurred as file " + file_to_validate + " does not exist!")
 
 
 if __name__ == '__main__':
     if not len(sys.argv) > 1:
-        root = Tk()
-        gui = GUI.ValidateGUI(root)
-        root.mainloop()
+        user_sentence = input('Enter string to validate: ')
+        run_all_checks(user_sentence)
     else:
         validate_file(sys.argv[1])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    #sentence_to_validate = input('Enter string to validate: ')
-    #check_capital_letter(sentence_to_validate)
-    #check_period_at_end(sentence_to_validate)
-    #check_quotation_marks(sentence_to_validate)
-    #check_no_other_period(sentence_to_validate)
-    #check_numbers(sentence_to_validate)
