@@ -69,6 +69,5 @@ if __name__ == '__main__':
     root = Tk()
     root.title("Sentence Validator")
     root.geometry("400x210")
-    root.resizable(0, 0)
     gui = ValidateGUI(root)
     root.mainloop()
