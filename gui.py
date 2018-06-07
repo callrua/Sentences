@@ -1,6 +1,6 @@
 from tkinter import *
 
-import main as validator
+import validator
 
 
 class ValidateGUI:
